@@ -12,8 +12,12 @@
                        (1<<STEPPER_3_BIT)|\
                        (1<<STEPPER_4_BIT))
 
-void stepperInit(void);
 
-void stepperStep(int8_t amount);
+void   stepperInit(void);
+void   stepperSetSpeed(uint8_t speed);
+void   stepperSetSteps(int8_t steps);
+int8_t stepperGetSteps(void);
+
+ 
 
 #endif /* _STEPPER_H_ */
