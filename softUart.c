@@ -10,10 +10,6 @@ void softUartInit(void)
     UART_RX_DDR  &= ~(1<<UART_RX_BIT);
     UART_RX_PORT |=  (1<<UART_RX_BIT);
 
-#ifdef DEBUG_SOFT_UART
-    DEBUG_DDR |= (1<<DEBUG_BIT);
-#endif
-
     TCCR1  = (1<<CTC1);
     TCCR1 |= 2;         /* Clock prescaler CK/2 */
     OCR1C  = 208/4;     /* 1MHz/2/208 = 2.40384615kHz = 2400baud */
@@ -53,9 +49,6 @@ ISR(TIMER1_COMPA_vect)
         case BYTE:
             if (!(clkCount % 4))
             {
-#ifdef DEBUG_SOFT_UART
-                DEBUG_PORT |= (1<<DEBUG_BIT);
-#endif
                 gUartData = gUartData >> 1;
                 if (RX_STATE())
                     gUartData |= (1<<7);
@@ -68,9 +61,6 @@ ISR(TIMER1_COMPA_vect)
                     state = STOP_BIT;
                     clkCount = 0;
                 }
-#ifdef DEBUG_SOFT_UART
-                DEBUG_PORT &= ~(1<<DEBUG_BIT);
-#endif
             }
             break;
 

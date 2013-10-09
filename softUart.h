@@ -6,13 +6,6 @@
 #define UART_RX_PIN  PINB
 #define UART_RX_BIT  PB4
 
-//#define DEBUG_SOFT_UART
-#ifdef DEBUG_SOFT_UART
-#define DEBUG_PORT   PORTB
-#define DEBUG_DDR    DDRB
-#define DEBUG_BIT    PB2
-#endif
-
 #define RX_STATE()   (UART_RX_PIN & (1<<UART_RX_BIT))
 
 /* 0,1,2,3,4,5,6,7 */
