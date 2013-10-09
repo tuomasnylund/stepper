@@ -31,6 +31,7 @@ ISR(TIMER1_COMPA_vect)
 {
     static uint8_t state    = WAIT_FOR_START_BIT;
     static uint8_t clkCount = 0;
+    static uint8_t data;
 
     clkCount++;
     switch(state)
@@ -43,21 +44,22 @@ ISR(TIMER1_COMPA_vect)
             {
                 state = BYTE;
                 clkCount = 0;
+                data = 0;
             }
             break;
 
         case BYTE:
             if (!(clkCount % 4))
             {
-                gUartData = gUartData >> 1;
+                data = data >> 1;
                 if (RX_STATE())
-                    gUartData |= (1<<7);
-                else
-                    gUartData &= ~(1<<7);
+                    data |= (1<<7);
 
                 if (clkCount == 8*4)
                 {
                     gNewData = 1;
+                    gUartData = data;
+
                     state = STOP_BIT;
                     clkCount = 0;
                 }
