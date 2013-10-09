@@ -21,7 +21,7 @@ int8_t gSteps;
 
 void stepperInit(void)
 {
-    STEPPER_DDR  |= STEPPER_MASK;
+    STEPPER_DDR |= STEPPER_MASK;
     TCCR0A |= (1<<WGM01);  /* WGM    = CTC  */
     TCCR0B |= 0b101;       /* CLKDIV = 1024 */
     TIMSK  |= (1<<OCIE0A);
