@@ -32,7 +32,7 @@ void softUartInit(void)
     TCCR1  = (1<<CTC1);   /* Clear timer on compare with OCR1C */
     TCCR1 |= 2;           /* Clock prescaler CK/2 */
     OCR1C  = 208/4;       /* 1MHz/2/208 = 2.40384615kHz = 2400baud. sampling 4 times/bit */
-    OCR1A  = 1;           /* No interrupt available on OCR1A, so we are using this */
+    OCR1A  = 1;           /* No interrupt available on OCR1C, so we are using this */
     TIMSK |= (1<<OCIE1A); /* Enable interrupt */
 }
 
