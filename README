@@ -1,0 +1,15 @@
+Author: Tuomas Nylund
+Website: www.tuomasnylund.fi
+email: tuomas.nylund@gmail.com
+
+This is just a simple project to control a stepper motor with a small 8-pin
+attiny25/45/85 microcontroller. The microcontroller has 5 pins for I/O, 1 pin
+for a UART RX, 4 pins for controlling the stepper motor.
+
+The UART RX is implemented by sampling the RX pin with in an interrupt running
+at 4X the desired baudrate. In this instance the baudrate is configured to
+be 2400.
+
+Stepper control is done using TIMER0.
+
+All code released under GPLv3
