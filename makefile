@@ -33,7 +33,7 @@
 
 
 # MCU name
-MCU = attiny45
+MCU = attiny25
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex

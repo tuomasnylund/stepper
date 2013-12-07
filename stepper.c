@@ -24,10 +24,10 @@
 /* Const variables */
 const uint8_t C_stepperMasks[] = 
 {
-    1<<STEPPER_1_BIT, 
-    1<<STEPPER_2_BIT, 
-    1<<STEPPER_3_BIT, 
-    1<<STEPPER_4_BIT
+    (1<<STEPPER_1_BIT)|(1<<STEPPER_2_BIT), 
+    (1<<STEPPER_2_BIT)|(1<<STEPPER_3_BIT), 
+    (1<<STEPPER_3_BIT)|(1<<STEPPER_4_BIT), 
+    (1<<STEPPER_4_BIT)|(1<<STEPPER_1_BIT)
 };
 
 /* Static variables */
@@ -69,12 +69,9 @@ ISR(TIMER0_COMPA_vect)
 {
     static uint8_t state = 0;
 
-    uint8_t newOutput;
 
     if ( gSteps )
     {
-        newOutput = C_stepperMasks[ state ];
-
         if ( gSteps > 0 )
         {
             state += 1;
@@ -87,10 +84,8 @@ ISR(TIMER0_COMPA_vect)
         }
         state %= 4;
 
-        newOutput |= C_stepperMasks[ state ];
-
         STEPPER_PORT &= ~STEPPER_MASK;
-        STEPPER_PORT |= newOutput;
+        STEPPER_PORT |= C_stepperMasks[ state ];
     }
     else
     {
