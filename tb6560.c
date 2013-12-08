@@ -71,7 +71,7 @@ void tb6560SetSteps(int16_t steps)
 {
     ATOMIC_BLOCK(ATOMIC_FORCEON)
     {
-        gSteps += steps;
+        gSteps = steps;
 
         if (gSteps>0)
         {

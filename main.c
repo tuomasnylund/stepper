@@ -26,25 +26,15 @@
 
 int main(void)
 {
-    //uint8_t tempChar;
+    uint8_t tempChar;
 
     tb6560Init();
-    //softUartInit();
+    softUartInit();
 
     sei();
 
-    while(1)
-    {
-        tb6560SetSpeed(250);
-        tb6560SetSteps(100);
-        while(tb6560GetSteps());
-        tb6560SetSpeed(10);
-        tb6560SetSteps(-100);
-        while(tb6560GetSteps());
-    }
-
-    /*
-    stepperSetSpeed(2);
+    tb6560SetSpeed(20);
+    tb6560SetSteps(20);
     while(1)
     {
         while(!softUartNewChar());
@@ -62,21 +52,20 @@ int main(void)
             case '7':
             case '8':
             case '9':
-                stepperSetSpeed(tempChar-'0');
+                tb6560SetSpeed((tempChar-'0'+1)*20);
                 break;
 
             case 'w':
-                stepperSetSteps(20);
+                tb6560SetSteps(20);
                 break;
 
             case 's':
-                stepperSetSteps(-20);
+                tb6560SetSteps(-20);
                 break;
 
             default:
                 break;
         }
     }
-    */
     return 0;
 }

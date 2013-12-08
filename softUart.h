@@ -23,7 +23,7 @@
 #define UART_RX_PORT PORTB /**< Port register of the UART RX pin */
 #define UART_RX_DDR  DDRB  /**< Data direction register of the UART RX pin */
 #define UART_RX_PIN  PINB  /**< Port in register of the UART RX pin */
-#define UART_RX_BIT  PB4   /**< The bit of the UART RX pin */
+#define UART_RX_BIT  PB0   /**< The bit of the UART RX pin */
 
 #define RX_STATE()   (UART_RX_PIN & (1<<UART_RX_BIT)) /**< Macro to read RX pin */
 

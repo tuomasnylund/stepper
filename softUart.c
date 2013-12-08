@@ -29,11 +29,12 @@ void softUartInit(void)
     UART_RX_DDR  &= ~(1<<UART_RX_BIT);
     UART_RX_PORT |=  (1<<UART_RX_BIT);
 
-    TCCR1  = (1<<CTC1);   /* Clear timer on compare with OCR1C */
-    TCCR1 |= 2;           /* Clock prescaler CK/2 */
-    OCR1C  = 208/4;       /* 1MHz/2/208 = 2.40384615kHz = 2400baud. sampling 4 times/bit */
-    OCR1A  = 1;           /* No interrupt available on OCR1C, so we are using this */
-    TIMSK |= (1<<OCIE1A); /* Enable interrupt */
+    TCCR0A |= (1<<WGM01); /* WGM    = CTC  */
+    TCCR0B |= 1;          /* Clock prescaler no prescaling */
+    OCR0A  = 416/4;       /* 1MHz/416 = 2.40384615kHz = 2400baud. sampling 4 times/bit */
+
+    TIMSK  |= (1<<OCIE0A);
+    TIMSK  |= (1<<TOIE0);
 }
 
 uint8_t softUartNewChar(void)
@@ -46,7 +47,7 @@ uint8_t softUartGetChar(void)
     return gUartData;
 }
 
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER0_COMPA_vect)
 {
     static uint8_t state    = WAIT_FOR_START_BIT;
     static uint8_t clkCount = 0;
