@@ -56,9 +56,6 @@ void tb6560Init(void)
     TB6560_EN_DDR   |= (1<<TB6560_EN_BIT);
     TB6560_DIR_DDR  |= (1<<TB6560_DIR_BIT);
 
-
-    TB6560_EN_PORT  |= (1<<TB6560_EN_BIT); /* Enable TB6560 */
-
     initializeTimer();
 }
 
@@ -85,6 +82,7 @@ void tb6560SetSteps(int16_t steps)
         if (gSteps)
         {
             enableTimer();
+            TB6560_EN_PORT |= (1<<TB6560_EN_BIT); /* Enable TB6560 */
         }
     }
 }
@@ -112,5 +110,6 @@ ISR(TIMER1_COMPB_vect)
     else
     {
         disableTimer();
+        TB6560_EN_PORT &= ~(1<<TB6560_EN_BIT); /* Disable TB6560 */
     }
 }

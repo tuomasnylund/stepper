@@ -25,7 +25,7 @@
 #define UART_RX_PIN  PINB  /**< Port in register of the UART RX pin */
 #define UART_RX_BIT  PB0   /**< The bit of the UART RX pin */
 
-#define RX_STATE()   (UART_RX_PIN & (1<<UART_RX_BIT)) /**< Macro to read RX pin */
+#define RX_STATE()   (!(UART_RX_PIN & (1<<UART_RX_BIT))) /**< Macro to read RX pin */
 
 /**
  * \brief  UART states

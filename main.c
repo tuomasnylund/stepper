@@ -24,6 +24,8 @@
 #include "tb6560.h"
 #include "softUart.h"
 
+static uint8_t C_speeds[] = {15,20,25,30,40,60,100,160,240};
+
 int main(void)
 {
     uint8_t tempChar;
@@ -52,7 +54,7 @@ int main(void)
             case '7':
             case '8':
             case '9':
-                tb6560SetSpeed((tempChar-'0'+1)*20);
+                tb6560SetSpeed(C_speeds[tempChar-'0'-1]);
                 break;
 
             case 'w':
