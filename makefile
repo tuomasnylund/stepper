@@ -45,7 +45,7 @@ F_CLOCK = 1000000
 F_CPU = 1000000
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c stepper.c softUart.c
+SRC = $(TARGET).c tb6560.c softUart.c
 
 
 # List Assembler source files here.

@@ -21,18 +21,29 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-#include "stepper.h"
+#include "tb6560.h"
 #include "softUart.h"
 
 int main(void)
 {
-    uint8_t tempChar;
+    //uint8_t tempChar;
 
-    stepperInit();
-    softUartInit();
+    tb6560Init();
+    //softUartInit();
 
     sei();
 
+    while(1)
+    {
+        tb6560SetSpeed(250);
+        tb6560SetSteps(100);
+        while(tb6560GetSteps());
+        tb6560SetSpeed(10);
+        tb6560SetSteps(-100);
+        while(tb6560GetSteps());
+    }
+
+    /*
     stepperSetSpeed(2);
     while(1)
     {
@@ -66,5 +77,6 @@ int main(void)
                 break;
         }
     }
+    */
     return 0;
 }

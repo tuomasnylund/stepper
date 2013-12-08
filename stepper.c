@@ -30,14 +30,10 @@ const uint8_t C_stepperMasks[] =
     (1<<STEPPER_4_BIT)|(1<<STEPPER_1_BIT)
 };
 
-/* Static variables */
-
+/* Global variables */
 int8_t gSteps;
 
-/* Static functions */
-
 /* Functions */
-
 void stepperInit(void)
 {
     STEPPER_DDR |= STEPPER_MASK;

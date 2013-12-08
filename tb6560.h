@@ -1,7 +1,7 @@
 /**
- * \file   stepper.h
+ * \file   tb6560.h
  * \author Tuomas Nylund
- * \brief  Header for interrupt driven unipolar stepper controller
+ * \brief  Header file for TB6560 stepper driver controller
  */
 /* This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,45 +17,51 @@
  * this program. If not, see <http://www.gnu.org/licenses/>
  */
 
-#ifndef _STEPPER_H_
-#define _STEPPER_H_
+#ifndef TB6560
+#define TB6560
 
-#define STEPPER_PORT  PORTB /**< Port register for stepper outputs */
-#define STEPPER_DDR   DDRB  /**< Data direction register for stepper outputs */
-#define STEPPER_1_BIT PB2   /**<  */
-#define STEPPER_2_BIT PB1   /**<  */
-#define STEPPER_3_BIT PB0   /**<  */
-#define STEPPER_4_BIT PB3   /**<  */
-#define STEPPER_MASK  ((1<<STEPPER_1_BIT)|\
-                       (1<<STEPPER_2_BIT)|\
-                       (1<<STEPPER_3_BIT)|\
-                       (1<<STEPPER_4_BIT))
+#define TB6560_EN_PORT  PORTB
+#define TB6560_EN_DDR   DDRB
+#define TB6560_EN_BIT   PB3
 
+/* OC1B */
+#define TB6560_CLK_PORT PORTB
+#define TB6560_CLK_DDR  DDRB
+#define TB6560_CLK_BIT  PB4
+
+#define TB6560_DIR_PORT PORTB
+#define TB6560_DIR_DDR  DDRB
+#define TB6560_DIR_BIT  PB1
+
+#define PRESCALER_CLEAR_MASK (~((uint8_t)0b1111))
+#define PRESCALER_VALUE      8
 
 /**
  * \brief  Initialize Stepper controller
  */
-void   stepperInit(void);
+void   tb6560Init(void);
 
 /**
  * \brief  Set the speed at which the stepper steps
  *
  * \param  speed delay between steps in ~1ms steps
  */
-void   stepperSetSpeed(uint8_t speed);
+void   tb6560SetSpeed(uint8_t speed);
 
 /**
  * \brief  Change the steps to be done
  *
  * \param  steps number of steps, positive and negative give different directions
  */
-void   stepperSetSteps(int8_t steps);
+void   tb6560SetSteps(int16_t steps);
 
 /**
  * \brief  Get the steps to be done
  *
  * \return The target steps 
  */
-int8_t stepperGetSteps(void);
+int16_t tb6560GetSteps(void);
 
-#endif /* _STEPPER_H_ */
+
+
+#endif /* TB6560 */
